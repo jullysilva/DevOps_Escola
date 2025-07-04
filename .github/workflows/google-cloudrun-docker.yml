@@ -72,6 +72,17 @@ jobs:
           password: '${{ steps.auth.outputs.access_token }}'
           registry: '${{ env.REGION }}-docker.pkg.dev'
 
+      - name: 'Ensure Artifact Registry repository exists'
+        run: |
+          gcloud artifacts repositories describe ${{ env.SERVICE }} \
+            --location=${{ env.REGION }} \
+            --project=${{ env.PROJECT_ID }} || \
+          gcloud artifacts repositories create ${{ env.SERVICE }} \
+            --repository-format=docker \
+            --location=${{ env.REGION }} \
+            --project=${{ env.PROJECT_ID }} \
+            --description="Repositório Docker criado via GitHub Actions"
+        
       - name: 'Build and Push Container'
         run: |-
           DOCKER_TAG="${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{ github.sha }}"
