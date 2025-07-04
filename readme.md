@@ -82,3 +82,13 @@ Este projeto é uma API desenvolvida com FastAPI para gerenciar alunos, cursos e
   ```sh
   docker run -p 8000:8000 api
   ```
+
+8. **Como integrar o projeto ao Google Cloud:**
+
+- Em ambiente local
+
+```sh
+gcloud auth login
+gcloud config set project PROJECT_ID
+gcloud run deploy --port=8000
+```
