@@ -74,9 +74,6 @@ jobs:
 
       - name: 'Ensure Artifact Registry repository exists'
         run: |
-          gcloud artifacts repositories describe ${{ env.SERVICE }} \
-            --location=${{ env.REGION }} \
-            --project=${{ env.PROJECT_ID }} || \
           gcloud artifacts repositories create ${{ env.SERVICE }} \
             --repository-format=docker \
             --location=${{ env.REGION }} \
